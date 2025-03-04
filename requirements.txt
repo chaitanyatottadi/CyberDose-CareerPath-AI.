@@ -1,0 +1,7 @@
+streamlit
+requests
+beautifulsoup4
+googlesearch-python
+llama-cpp-python
+python-docx
+pymupdf  # Required for 'fitz' (PyMuPDF)
