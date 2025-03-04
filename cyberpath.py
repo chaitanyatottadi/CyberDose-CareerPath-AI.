@@ -7,8 +7,25 @@ from bs4 import BeautifulSoup
 from llama_cpp import Llama
 from googlesearch import search
 
+# Google Drive Direct Download Link for Model File
+gguf_url = "https://drive.google.com/uc?export=download&id=1BMmP-W_Lq_LWbomxcbaYCVdcy4l54kvP"
+model_path = "capybarahermes-2.5-mistral-7b.Q4_K_M.gguf"
+
+# Function to download the model if not available
+def download_model():
+    if not os.path.exists(model_path):
+        st.write("📥 Downloading AI model... This may take some time.")
+        response = requests.get(gguf_url, stream=True)
+        with open(model_path, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+        st.write("✅ Download complete!")
+
+# Download the model
+download_model()
+
 # Load AI Model
-llm = Llama(model_path=os.path.expanduser("~/cyberpath_ai/capybarahermes-2.5-mistral-7b.Q4_K_M.gguf"))
+llm = Llama(model_path=model_path)
 
 st.set_page_config(page_title="CyberDose Career Path AI", page_icon="🔒")
 st.title("🔒 CyberDose Career Path AI")
